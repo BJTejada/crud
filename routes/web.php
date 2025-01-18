@@ -26,6 +26,8 @@ Route::get('/empleados/listar', [EmpleadoController::class, 'listarEmp']);
 Route::post('/empleados/agregarEmp', [EmpleadoController::class, 'store'])->name('empleados.store');
 Route::get('/empleados/usuario/{idUsuario}', [UsuarioController::class, 'obtUsuario']);
 Route::put('/empleados/editEmp', [EmpleadoController::class, 'update'])->name('empleados.update');
+Route::delete('/empleados/eliminar/{id}', [EmpleadoController::class, 'delete']);
+
 
 
 

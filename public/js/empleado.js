@@ -29,7 +29,7 @@ $(document).ready(function () {
                                 data-activo="${empleado.activo}">
                                 Editar
                             </button>
-                                <button id="btnDeshabilitar" class= "btn-desactivar"
+                                <button id="btn-Delete" class= "btn-desactivar"
                                     data-id="${empleado.idEmpleado}">
                                     eliminar
                                 </button>
@@ -193,8 +193,6 @@ $("input[type='text']").each(function() {
             }
         });
     }
-
-    
     });
 
     $("#chEdit").change(function() { 
@@ -206,5 +204,20 @@ $("input[type='text']").each(function() {
         $('#edit-contraseña').val("");
     });
 
-
+    $(document).on('click','#btn-Delete',function(){
+        const id = $(this).data('id');
+        $.ajax({
+            url: `empleados/eliminar/${id}`,
+            type: 'DELETE',    
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') 
+            },
+            success: function(){
+                alert('empleado eliminado(logico) exitosamente');
+                location.reload();
+            },error: function(xhr,status,error){
+                alert('error eliminando empleado');
+            }
+        })
+    });
 });

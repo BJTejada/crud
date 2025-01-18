@@ -103,8 +103,29 @@ class EmpleadoController extends Controller
         }catch (\Exception $e){
             return response()->json([
                 'message' => 'Error al actualizar los datos',
-                'error' => $e->getMessage(), // Detalles del error
-                'code' => $e->getCode(),     // Código del error (si lo deseas)
+                'error' => $e->getMessage(), 
+                'code' => $e->getCode(),     
+            ], 500);
+        }
+    }
+
+    public function delete($id){
+        $DeleteEmp = Empleado::find($id);
+        if (!$DeleteEmp) {
+            return response()->json(['message' => 'emp no encontrado.','empid' => $id,], 404);
+        }
+        DB::beginTransaction();
+        try{
+            $empleado = Empleado::find($id);
+            $empleado->activo = 0;
+            $empleado->save();
+            DB::commit();
+            return response()->json(['message' => 'Empleado eliminado correctamente.']);
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Error al eliminar empleado en catch',
+                'error' => $e->getMessage(), 
+                'code' => $e->getCode(),     
             ], 500);
         }
     }
