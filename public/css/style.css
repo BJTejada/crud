@@ -108,3 +108,22 @@ input {
         width: 90%;
     }
 }
+.form-groupch {
+    display: flex; /* Asegura que los elementos estén alineados */
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center; /* Centra el checkbox con el texto verticalmente */
+    gap: 4px; /* Añade un pequeño espacio entre el checkbox y el texto */
+    font-size: 14px; /* Ajusta el tamaño del texto si es necesario */
+}
+
+input[type="checkbox"] {
+    margin: 0; /* Elimina márgenes adicionales del checkbox */
+    padding: 0;
+}
+
+
+

@@ -57,7 +57,7 @@ $(document).ready(function () {
         const puesto = $(this).data('puesto');
         const salario = $(this).data('salario');
         const fechaIngreso = $(this).data('fechaingreso');
-        const idUsuario = $(this).data('idusuario');
+        let idUsuario = $(this).data('idusuario');
         const activo = $(this).data('activo');
     
         //vars-modal
@@ -71,7 +71,20 @@ $(document).ready(function () {
         $('#edit-activo').val(activo);
     
         $('#modalEditar').show();
+        $.ajax({
+            url:  `empleados/usuario/${idUsuario}`,
+            type: 'GET',
+            success: function(data){
+                
+                $('#edit-usuario').val(data.usuario);
+                $('#idPasswordE').val(data.contraseña);
+            },
+            error: function(xhr, status, error){
+                alert("error al obtener usuario");
+            }
+        })
     });
+
     $(document).on('click','#btn-closeModal',function(){
         $('#modalEditar').hide();
     });
@@ -105,4 +118,93 @@ $(document).ready(function () {
         })
 
     });
+
+    $('#formEditar').on('submit',function(e){
+/* Iterar sobre todos los campos de texto y comprobar si están vacíos 
+$("input[type='text']").each(function() { 
+    if ($(this).val() === "") { 
+        isValid = false; 
+        $(this).css("border", "2px solid red"); // Añadir borde rojo si está vacío 
+    } else { 
+        $(this).css("border", ""); // Quitar borde si no está vacío 
+    } }); // Si algún campo está vacío, prevenir el envío del formulario 
+    if (!isValid) { 
+        e.preventDefault(); alert("Por favor, completa todos los campos."); 
+    }*/
+        e.preventDefault
+    if($('#edit-contraseña').val() === "" && $('#chEdit').is(":checked")){
+        e.preventDefault
+        alert("El campo de contraseña está vacío y el checkbox está seleccionado.");
+        return false;
+    } else if($('#chEdit').is(":checked") && $('#edit-contraseña').val() !== ""){
+        
+        const form ={
+            
+            id: $('#edit-idEmpleado').val(),
+            nombre: $('#edit-nombre').val(),
+            apellido: $('#edit-apellido').val(),
+            puesto: $('#edit-puesto').val(),
+            salario: $('#edit-salario').val(),
+            fechaIngreso: $('#edit-fechaIngreso').val(),
+            idUser: $('#edit-idUsuario').val(),
+            usuario: $('#edit-usuario').val(),
+            password: $('#edit-contraseña').val(),
+            _token: $('input[name="_token"]').val(),
+        };
+        $.ajax({
+            url: 'empleados/editEmp',
+            type:'PUT',
+            data: form,
+            success: function(response){
+                alert('empleado actualizado');
+                location.reload();
+            },
+            error: function(xhr, status,error){
+                console.error(xhr.responseText);
+                alert('no se pudo actualizar empleado');
+            }
+        });
+    } else if(!$('#chEdit').is(":checked") && $('#edit-contraseña').val() === ""){
+        
+        const form ={
+            id: $('#edit-idEmpleado').val(),
+            nombre: $('#edit-nombre').val(),
+            apellido: $('#edit-apellido').val(),
+            puesto: $('#edit-puesto').val(),
+            salario: $('#edit-salario').val(),
+            fechaIngreso: $('#edit-fechaIngreso').val(),
+            idUser: $('#edit-idUsuario').val(),
+            usuario: $('#edit-usuario').val(),
+            password: '',
+            _token: $('input[name="_token"]').val(),
+        };
+
+        $.ajax({
+            url: 'empleados/editEmp',
+            type:'PUT',
+            data: form,
+            success: function(response){
+                alert('empleado actualizado');
+                location.reload();
+            },
+            error: function(xhr, status,error){
+                console.error(xhr.responseText);
+                alert('no se pudo actualizar empleado');
+            }
+        });
+    }
+
+    
+    });
+
+    $("#chEdit").change(function() { 
+        if ($(this).is(":checked")) { 
+        $("#edit-contraseña").prop("disabled", false); 
+            $('#edit-contraseña').val("");
+        } else { 
+        $("#edit-contraseña").prop("disabled", true); } 
+        $('#edit-contraseña').val("");
+    });
+
+
 });

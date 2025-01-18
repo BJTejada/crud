@@ -83,41 +83,43 @@
         <h4>Editar Empleado</h4>
         <button id="btn-closeModal">Cerrar</button>
         <form id="formEditar">
+        @csrf
             <input type="hidden" id="edit-idEmpleado">
-            
             <div class="form-grid">
                 <div class="form-group">
                     <label for="edit-nombre">Nombre:</label>
-                    <input type="text" id="edit-nombre">
+                    <input type="text" id="edit-nombre" required>
                 </div>
                 <div class="form-group">
                     <label for="edit-apellido">Apellido:</label>
-                    <input type="text" id="edit-apellido">
+                    <input type="text" id="edit-apellido" required>
                 </div>
                 <div class="form-group">
                     <label for="edit-puesto">Puesto:</label>
-                    <input type="text" id="edit-puesto">
+                    <input type="text" id="edit-puesto" required>
                 </div>
                 <div class="form-group">
                     <label for="edit-salario">Salario:</label>
-                    <input type="number" id="edit-salario">
+                    <input type="text" id="edit-salario" required>
                 </div>
 
                 <div class="form-group">
                     <label for="edit-fechaIngreso">Fecha de Ingreso:</label>
-                    <input type="date" id="edit-fechaIngreso">
-                </div>
-                <div class="form-group disabled">
-                    <label for="edit-idUsuario">ID Usuario:</label>
-                    <input type="text" id="edit-idUsuario" readonly>
+                    <input type="date" id="edit-fechaIngreso" required>
                 </div>
                 <div class="form-group">
-                    <label for="edit-usuario">Usuario:</label>
-                    <input type="text" id="edit-usuario">
+                    <input type="hidden" id="edit-idUsuario" >
                 </div>
                 <div class="form-group">
-                    <label for="edit-contraseña">Contraseña:</label>
-                    <input type="password" id="edit-contraseña">
+                    <label for="edit-usuario" style="color: green;">Usuario:</label>
+                    <input type="text" id="edit-usuario" required>
+                </div>
+                <div class="form-groupch">
+                    <label for="cambiar-password" class="checkbox-label">
+                    <input type="checkbox" id="chEdit">
+                    Cambiar contraseña
+                    </label>
+                    <input type="text" id="edit-contraseña" style="height: 35px;margin-top:20px; margin-left: 2px;" disabled  placeholder="contraseña nueva">
                 </div>
             </div>
             <button type="submit" class="btn-submit">Guardar Cambios</button>

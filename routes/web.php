@@ -18,9 +18,14 @@ Route::get('/', function () {
 });
 */
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\UsuarioController;
 
 Route::get('/', [EmpleadoController::class, 'index']);
 
 Route::get('/empleados/listar', [EmpleadoController::class, 'listarEmp']);
 Route::post('/empleados/agregarEmp', [EmpleadoController::class, 'store'])->name('empleados.store');
+Route::get('/empleados/usuario/{idUsuario}', [UsuarioController::class, 'obtUsuario']);
+Route::put('/empleados/editEmp', [EmpleadoController::class, 'update'])->name('empleados.update');
+
+
 
